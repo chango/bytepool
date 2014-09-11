@@ -31,6 +31,11 @@ func (item *JsonItem) WriteInt(value int) int {
   return item.delimit(n)
 }
 
+func (item *JsonItem) WriteFloat(value float64) int {
+  n := item.Item.WriteString(strconv.FormatFloat(value, 'f', -1, 64))
+  return item.delimit(n)
+}
+
 func (item *JsonItem) WriteBool(value bool) int {
   n := item.Item.WriteString(strconv.FormatBool(value))
   return item.delimit(n)
@@ -54,6 +59,10 @@ func (item *JsonItem) WriteKeySafeString(key, value string) int {
 
 func (item *JsonItem) WriteKeyInt(key string, value int) int {
   return item.WriteKeyValue(key, strconv.Itoa(value), false)
+}
+
+func (item *JsonItem) WriteKeyFloat(key string, value float64) int {
+  return item.WriteKeyValue(key, strconv.FormatFloat(value, 'f', -1, 64), false)
 }
 
 func (item *JsonItem) WriteKeyBool(key string, value bool) int {
